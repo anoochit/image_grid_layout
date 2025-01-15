@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_post_layout/src/image_grid_type.dart';
+import 'package:image_post_layout/src/image_post_type.dart';
 
 /// A customizable grid layout widget for displaying a collection of images in different arrangements.
 ///
@@ -13,16 +13,16 @@ import 'package:image_post_layout/src/image_grid_type.dart';
 /// For images beyond the visible limit (5 for most layouts, 4 for columns),
 /// a count indicator will be displayed showing the number of additional images.
 ///
-class ImageGrid extends StatelessWidget {
-  /// Creates an ImageGrid widget.
+class ImagePost extends StatelessWidget {
+  /// Creates an ImagePost widget.
   ///
   /// The [type] parameter determines the layout style of the grid.
   /// The [images] parameter must contain at least 5 image URLs as strings.
-  const ImageGrid({super.key, required this.type, required this.images});
+  const ImagePost({super.key, required this.type, required this.images});
 
   /// The type of grid layout to be used.
-  /// See [ImageGridType] for available options.
-  final ImageGridType type;
+  /// See [ImagePostType] for available options.
+  final ImagePostType type;
 
   /// List of image URLs to be displayed in the grid.
   /// Must contain at least 5 items.
@@ -38,13 +38,13 @@ class ImageGrid extends StatelessWidget {
       builder: (context, constraints) {
         final scWidth = constraints.maxWidth;
         switch (type) {
-          case ImageGridType.columns:
+          case ImagePostType.columns:
             // columns
             return _columnsLayout(scWidth, context);
-          case ImageGridType.banner:
+          case ImagePostType.banner:
             // banner
             return _bannerLayout(scWidth, context);
-          case ImageGridType.frame:
+          case ImagePostType.frame:
             // frame
             return _frameLayout(scWidth, context);
           default:

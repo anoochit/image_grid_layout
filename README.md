@@ -48,7 +48,7 @@ dependencies:
 ## Usage
 
 ```dart
-import 'package:image_post_layout/image_grid_layout.dart';
+import 'package:image_post_layout/image_post_layout.dart';
 
 // Create a list of image URLs (minimum 5 required)
 final List<String> imageUrls = [
@@ -61,8 +61,8 @@ final List<String> imageUrls = [
 ];
 
 // Use the widget with your preferred layout type
-ImageGrid(
-  type: ImageGridType.classic,
+ImagePost(
+  type: ImagePostType.classic,
   images: imageUrls,
 )
 ```

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_post_layout/image_grid_layout.dart';
+import 'package:image_post_layout/image_post_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,8 +44,8 @@ class MyHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ImageGrid(
-            type: ImageGridType.frame,
+          ImagePost(
+            type: ImagePostType.frame,
             images: imageUrls,
           ),
         ],

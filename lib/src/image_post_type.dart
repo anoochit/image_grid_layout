@@ -1,5 +1,5 @@
 /// Defines the available layout types for the ImageGrid widget.
-enum ImageGridType {
+enum ImagePostType {
   /// Traditional 2x2 grid with 3 images below
   classic,
 
