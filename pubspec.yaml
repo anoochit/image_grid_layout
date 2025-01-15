@@ -1,7 +1,7 @@
-name: image_grid_layout
+name: image_post_layout
 description: "A customizable grid layout widget for displaying a collection of images in different arrangements."
 version: 1.0.0
-homepage: https://github.com/anoochit/image_grid_layout
+homepage: https://github.com/anoochit/image_post_layout
 
 environment:
   sdk: ^3.6.0

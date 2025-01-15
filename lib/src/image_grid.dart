@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_grid_layout/src/image_grid_type.dart';
+import 'package:image_post_layout/src/image_grid_type.dart';
 
 /// A customizable grid layout widget for displaying a collection of images in different arrangements.
 ///
