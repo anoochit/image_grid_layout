@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:image_grid_layout/src/image_grid_type.dart';
 
+/// A customizable grid layout widget for displaying a collection of images in different arrangements.
+///
+/// This widget provides four different layout types for displaying images:
+/// * Classic - A 2x2 grid with an additional row of 3 images below
+/// * Columns - Four vertical columns of images with alternating heights
+/// * Banner - A large banner image with text and a row of smaller images below
+/// * Frame - Two large images on the left and three smaller images on the right
+///
+/// The widget requires a minimum of 5 images to function properly.
+/// For images beyond the visible limit (5 for most layouts, 4 for columns),
+/// a count indicator will be displayed showing the number of additional images.
+///
 class ImageGrid extends StatelessWidget {
+  /// Creates an ImageGrid widget.
+  ///
+  /// The [type] parameter determines the layout style of the grid.
+  /// The [images] parameter must contain at least 5 image URLs as strings.
   const ImageGrid({super.key, required this.type, required this.images});
 
+  /// The type of grid layout to be used.
+  /// See [ImageGridType] for available options.
   final ImageGridType type;
+
+  /// List of image URLs to be displayed in the grid.
+  /// Must contain at least 5 items.
   final List<String> images;
 
   @override
@@ -34,6 +55,10 @@ class ImageGrid extends StatelessWidget {
     );
   }
 
+  /// Creates a frame-style layout with two large images on the left
+  /// and three smaller images on the right.
+  ///
+  /// The layout maintains a square aspect ratio with the width.
   Container _frameLayout(double scWidth, BuildContext context) {
     return Container(
       height: scWidth,
@@ -113,6 +138,10 @@ class ImageGrid extends StatelessWidget {
     );
   }
 
+  /// Creates a banner-style layout with one large image at the top,
+  /// followed by text and a row of smaller images.
+  ///
+  /// The layout maintains a square aspect ratio with the width.
   Widget _bannerLayout(double scWidth, BuildContext context) {
     return SizedBox(
       height: scWidth,
@@ -176,6 +205,10 @@ class ImageGrid extends StatelessWidget {
     );
   }
 
+  /// Creates a columns-style layout with four vertical columns of images.
+  ///
+  /// Alternate columns are offset vertically to create a staggered effect.
+  /// The layout height is 80% of its width.
   Widget _columnsLayout(double scWidth, BuildContext context) {
     final scHeight = scWidth * 0.8;
     return SizedBox(
@@ -222,6 +255,11 @@ class ImageGrid extends StatelessWidget {
     );
   }
 
+  /// Creates a classic grid layout with two rows:
+  /// * Top row: 2 equal-sized images
+  /// * Bottom row: 3 equal-sized images
+  ///
+  /// The layout height is 80% of its width.
   Widget _classicLayout(double scWidth, BuildContext context) {
     final scHeight = scWidth * 0.8;
     return SizedBox(

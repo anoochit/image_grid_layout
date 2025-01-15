@@ -16,23 +16,16 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Image Grid Layout'),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomePage extends StatelessWidget {
+  MyHomePage({super.key});
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   // image list
-  List<String> images = [
+  final List<String> imageUrls = [
     'https://fastly.picsum.photos/id/156/2177/3264.jpg?hmac=hjKWxNR5fYw1fbGYXknGDH6eRORZ_AlTeQBvyT2q_Cs',
     'https://fastly.picsum.photos/id/157/5000/3914.jpg?hmac=A23PziOOpi_DIdiPRI30m9_1A8keOtMF3a6Vb-D7dRA',
     'https://fastly.picsum.photos/id/158/4836/3224.jpg?hmac=Gu_3j3HxZgR74iw1sV0wcwlnSZSeCi7zDWLcjblOp_c',
@@ -47,13 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text('Image Layout Grid'),
       ),
       body: ListView(
         children: [
           ImageGrid(
             type: ImageGridType.frame,
-            images: images,
+            images: imageUrls,
           ),
         ],
       ),
