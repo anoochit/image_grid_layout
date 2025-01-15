@@ -1,4 +1,4 @@
-# Flutter Image Grid Layout
+# Flutter Image Post Layout
 
 A customizable Flutter widget for displaying image collections in various grid layouts. This package provides an elegant way to showcase multiple images in different arrangements, perfect for galleries, social media feeds, or any image-rich interface.
 
@@ -42,13 +42,13 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  image_grid_layout: ^1.0.0
+  image_post_layout: ^1.0.0
 ```
 
 ## Usage
 
 ```dart
-import 'package:image_grid_layout/image_grid_layout.dart';
+import 'package:image_post_layout/image_grid_layout.dart';
 
 // Create a list of image URLs (minimum 5 required)
 final List<String> imageUrls = [
