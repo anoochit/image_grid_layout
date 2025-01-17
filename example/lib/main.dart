@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:image_post_layout/image_post_layout.dart';
 
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -45,8 +48,17 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: [
           ImagePost(
-            type: ImagePostType.frame,
+            type: ImagePostType.classic,
             images: imageUrls,
+            bannerCaption: 'Caption for ImagePostType Banner',
+            onPressedItem: (int index) {
+              //
+              log('pressed $index');
+            },
+            onPressedMore: () {
+              //
+              log('pressed more');
+            },
           ),
         ],
       ),

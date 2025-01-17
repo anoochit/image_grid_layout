@@ -64,6 +64,15 @@ final List<String> imageUrls = [
 ImagePost(
   type: ImagePostType.classic,
   images: imageUrls,
+  bannerCaption: 'Caption for ImagePostType Banner',
+  onPressedItem: (int index) {
+    //
+    log('pressed $index');
+  },
+  onPressedMore: () {
+    //
+    log('pressed more');
+  },
 )
 ```
 

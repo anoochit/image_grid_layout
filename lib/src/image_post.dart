@@ -18,7 +18,16 @@ class ImagePost extends StatelessWidget {
   ///
   /// The [type] parameter determines the layout style of the grid.
   /// The [images] parameter must contain at least 5 image URLs as strings.
-  const ImagePost({super.key, required this.type, required this.images});
+  /// The [onPressedItem] parameter for call back when pressed each image.
+  /// The [onPressedMore] parameter for call back when pressed more button.
+  const ImagePost({
+    super.key,
+    required this.type,
+    required this.images,
+    required this.onPressedItem,
+    required this.onPressedMore,
+    this.bannerCaption,
+  });
 
   /// The type of grid layout to be used.
   /// See [ImagePostType] for available options.
@@ -27,6 +36,15 @@ class ImagePost extends StatelessWidget {
   /// List of image URLs to be displayed in the grid.
   /// Must contain at least 5 items.
   final List<String> images;
+
+  /// Call back when pressed more button.
+  final VoidCallback onPressedMore;
+
+  /// Call back when pressed each image.
+  final ValueChanged<int> onPressedItem;
+
+  // A canption for banner layout.
+  final String? bannerCaption;
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +102,12 @@ class ImagePost extends StatelessWidget {
                   mainAxisSpacing: 16.0,
                 ),
                 itemBuilder: (context, index) {
-                  return Image.network(
-                    images[index],
-                    fit: BoxFit.cover,
+                  return InkWell(
+                    onTap: () => onPressedItem((index)),
+                    child: Image.network(
+                      images[index],
+                      fit: BoxFit.cover,
+                    ),
                   );
                 },
               ),
@@ -111,19 +132,25 @@ class ImagePost extends StatelessWidget {
                   return Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.network(
-                          images[index + 2],
-                          fit: BoxFit.cover,
+                        child: InkWell(
+                          onTap: () => onPressedItem((index + 2)),
+                          child: Image.network(
+                            images[index + 2],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       (index == 2)
                           ? Center(
-                              child: Text(
-                                '+${images.length - 5}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .apply(color: Colors.white),
+                              child: TextButton(
+                                onPressed: onPressedMore,
+                                child: Text(
+                                  '+${images.length - 5}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .apply(color: Colors.white),
+                                ),
                               ),
                             )
                           : SizedBox()
@@ -152,9 +179,12 @@ class ImagePost extends StatelessWidget {
             flex: 3,
             child: SizedBox(
               width: scWidth,
-              child: Image.network(
-                images.first,
-                fit: BoxFit.cover,
+              child: InkWell(
+                onTap: () => onPressedItem((0)),
+                child: Image.network(
+                  images.first,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -162,7 +192,7 @@ class ImagePost extends StatelessWidget {
             flex: 1,
             child: Center(
               child: Text(
-                'text',
+                '$bannerCaption',
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
@@ -179,20 +209,25 @@ class ImagePost extends StatelessWidget {
                 return Stack(
                   children: [
                     Positioned.fill(
-                      child: Image.network(
-                        images[index + 1],
-                        fit: BoxFit.cover,
+                      child: InkWell(
+                        onTap: () => onPressedItem((index + 1)),
+                        child: Image.network(
+                          images[index + 1],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     (index == 3)
                         ? Center(
-                            child: Text(
-                              '+${images.length - 5}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .apply(color: Colors.white),
-                            ),
+                            child: TextButton(
+                                onPressed: onPressedMore,
+                                child: Text(
+                                  '+${images.length - 5}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .apply(color: Colors.white),
+                                )),
                           )
                         : SizedBox()
                   ],
@@ -229,19 +264,25 @@ class ImagePost extends StatelessWidget {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.network(
-                          e.value,
-                          fit: BoxFit.cover,
+                        child: InkWell(
+                          onTap: () => onPressedItem((e.key)),
+                          child: Image.network(
+                            e.value,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       (e.key == 3)
                           ? Center(
-                              child: Text(
-                                '+${images.length - 4}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .apply(color: Colors.white),
+                              child: TextButton(
+                                onPressed: onPressedMore,
+                                child: Text(
+                                  '+${images.length - 4}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .apply(color: Colors.white),
+                                ),
                               ),
                             )
                           : SizedBox()
@@ -265,47 +306,56 @@ class ImagePost extends StatelessWidget {
     return SizedBox(
       width: scWidth,
       height: scHeight,
-      child: LayoutBuilder(builder: (context, constraints) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // top 2 images
-            GridView.count(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              children: images
-                  .take(2)
-                  .map(
-                    (e) => Image.network(
-                      e,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // top 2 images
+          GridView.count(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            children: images
+                .asMap()
+                .entries
+                .take(2)
+                .map(
+                  (e) => InkWell(
+                    onTap: () => onPressedItem(e.key),
+                    child: Image.network(
+                      e.value,
                       fit: BoxFit.cover,
                     ),
-                  )
-                  .toList(),
-            ),
+                  ),
+                )
+                .toList(),
+          ),
 
-            // bottom 3 and plus sign
-            Row(
-              children: images
-                  .asMap()
-                  .entries
-                  .skip(2)
-                  .take(3)
-                  .map(
-                    (e) => SizedBox(
-                      height: scWidth * 0.3,
-                      width: scWidth / 3,
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
+          // bottom 3 and plus sign
+          Row(
+            children: images
+                .asMap()
+                .entries
+                .skip(2)
+                .take(3)
+                .map(
+                  (e) => SizedBox(
+                    height: scWidth * 0.3,
+                    width: scWidth / 3,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: InkWell(
+                            onTap: () => onPressedItem((e.key)),
                             child: Image.network(
                               e.value,
                               fit: BoxFit.cover,
                             ),
                           ),
-                          (e.key == 4)
-                              ? Center(
+                        ),
+                        (e.key == 4)
+                            ? Center(
+                                child: TextButton(
+                                  onPressed: onPressedMore,
                                   child: Text(
                                     '+${images.length - 5}',
                                     style: Theme.of(context)
@@ -313,17 +363,17 @@ class ImagePost extends StatelessWidget {
                                         .headlineSmall!
                                         .apply(color: Colors.white),
                                   ),
-                                )
-                              : SizedBox()
-                        ],
-                      ),
+                                ),
+                              )
+                            : SizedBox()
+                      ],
                     ),
-                  )
-                  .toList(),
-            ),
-          ],
-        );
-      }),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
     );
   }
 }
