@@ -48,7 +48,7 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: [
           ImagePost(
-            type: ImagePostType.classic,
+            type: ImagePostType.frame,
             images: imageUrls,
             bannerCaption: 'Caption for ImagePostType Banner',
             onPressedItem: (int index) {

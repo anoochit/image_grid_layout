@@ -88,7 +88,7 @@ class ImagePost extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.only(top: 16),
+            margin: EdgeInsets.only(top: 8),
             width: scWidth * 0.6,
             child: Container(
               padding: EdgeInsets.all(8.0),
@@ -115,7 +115,7 @@ class ImagePost extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            margin: EdgeInsets.only(bottom: 16),
+            margin: EdgeInsets.only(bottom: 8),
             width: scWidth * 0.4,
             child: Container(
               padding: EdgeInsets.all(8.0),
