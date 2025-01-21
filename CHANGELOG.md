@@ -11,3 +11,7 @@
 * Add call back function for onPressed on each image
 * Add call back function for  onPressed on more button
 * Add banner caption for ImagePostType.banner
+* 
+## 1.2.0
+
+* Refactor layout

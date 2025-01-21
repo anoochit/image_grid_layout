@@ -249,49 +249,47 @@ class ImagePost extends StatelessWidget {
     return SizedBox(
       height: scHeight,
       child: Row(
-        children: images
-            .asMap()
-            .entries
-            .take(4)
-            .map(
-              (e) => Container(
-                margin: EdgeInsets.only(top: (e.key.isOdd) ? 32.0 : 0.0),
-                width: scWidth / 4,
-                height: (scHeight) - 32,
-                child: Card(
-                  elevation: 0.0,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: InkWell(
-                          onTap: () => onPressedItem((e.key)),
-                          child: Image.network(
-                            e.value,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+        children: List.generate(
+          4,
+          (index) => Container(
+            margin: EdgeInsets.only(top: (index.isOdd) ? 32.0 : 0.0),
+            width: scWidth / 4,
+            height: (scHeight) - 32,
+            child: Card(
+              elevation: 0.0,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Stack(
+                children: [
+                  // image
+                  Positioned.fill(
+                    child: InkWell(
+                      onTap: () => onPressedItem((index)),
+                      child: Image.network(
+                        images[index],
+                        fit: BoxFit.cover,
                       ),
-                      (e.key == 3)
-                          ? Center(
-                              child: TextButton(
-                                onPressed: onPressedMore,
-                                child: Text(
-                                  '+${images.length - 4}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .apply(color: Colors.white),
-                                ),
-                              ),
-                            )
-                          : SizedBox()
-                    ],
+                    ),
                   ),
-                ),
+                  // button
+                  (index == 3)
+                      ? Center(
+                          child: TextButton(
+                            onPressed: onPressedMore,
+                            child: Text(
+                              '+${images.length - 4}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .apply(color: Colors.white),
+                            ),
+                          ),
+                        )
+                      : SizedBox()
+                ],
               ),
-            )
-            .toList(),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -311,67 +309,60 @@ class ImagePost extends StatelessWidget {
         children: [
           // top 2 images
           GridView.count(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            children: images
-                .asMap()
-                .entries
-                .take(2)
-                .map(
-                  (e) => InkWell(
-                    onTap: () => onPressedItem(e.key),
-                    child: Image.network(
-                      e.value,
-                      fit: BoxFit.cover,
-                    ),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              children: List.generate(
+                2,
+                (index) => InkWell(
+                  onTap: () => onPressedItem(index),
+                  child: Image.network(
+                    images[index],
+                    fit: BoxFit.cover,
                   ),
-                )
-                .toList(),
-          ),
+                ),
+              )),
 
           // bottom 3 and plus sign
           Row(
-            children: images
-                .asMap()
-                .entries
-                .skip(2)
-                .take(3)
-                .map(
-                  (e) => SizedBox(
-                    height: scWidth * 0.3,
-                    width: scWidth / 3,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: InkWell(
-                            onTap: () => onPressedItem((e.key)),
-                            child: Image.network(
-                              e.value,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+              children: List.generate(
+            3,
+            (index) {
+              return SizedBox(
+                height: scWidth * 0.3,
+                width: scWidth / 3,
+                child: Stack(
+                  children: [
+                    // image
+                    Positioned.fill(
+                      child: InkWell(
+                        onTap: () => onPressedItem((index + 2)),
+                        child: Image.network(
+                          images[index + 2],
+                          fit: BoxFit.cover,
                         ),
-                        (e.key == 4)
-                            ? Center(
-                                child: TextButton(
-                                  onPressed: onPressedMore,
-                                  child: Text(
-                                    '+${images.length - 5}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .apply(color: Colors.white),
-                                  ),
-                                ),
-                              )
-                            : SizedBox()
-                      ],
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
-          ),
+                    // button
+                    (index == 2)
+                        ? Center(
+                            child: TextButton(
+                              onPressed: onPressedMore,
+                              child: Text(
+                                '+${images.length - 5}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .apply(color: Colors.white),
+                              ),
+                            ),
+                          )
+                        : SizedBox()
+                  ],
+                ),
+              );
+            },
+          )),
         ],
       ),
     );
